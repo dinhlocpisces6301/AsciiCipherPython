@@ -28,7 +28,7 @@ vnchar = [
 ]
 
 text = "nghieng"
-def checkLetter(text):
+def checkLetter(text): # Check kí tự
     letters = []
     for letter in text:
         letters.append(letter)
@@ -82,7 +82,7 @@ syllable = [
         'uyet', 'oong'                      ],
 ]
 
-def getCons(word):
+def getCons(word):  # Check phụ âm đầu
     cons = ''
     for letter in word:
         if(letter in consonant[0]):
@@ -91,7 +91,7 @@ def getCons(word):
             break
     return cons
 
-def getSyl(word):
+def getSyl(word): # Check vần
     syl = ''
     isAdded = False
     isSyllable = False
@@ -106,7 +106,7 @@ def getSyl(word):
     return syl
 
 # text = "!@#$%^&*()an"
-def checkWord(word):
+def checkWord(word):    # Check từ
     point = 0
     cons = getCons(word)
     syl = getSyl(word)
@@ -120,7 +120,7 @@ def checkWord(word):
             point += 1
     return point
 
-def checkSentence(sentence):
+def checkSentence(sentence):    # Check câu
     point = 0
     words = sentence.split(' ')
     point += checkLetter(sentence)
