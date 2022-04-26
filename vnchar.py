@@ -111,11 +111,11 @@ def checkWord(word):    # Check từ
     cons = getCons(word)
     syl = getSyl(word)
 
-    if(len(cons) < 5):
+    if(len(cons) < 4 and len(cons) > 0):
         if(cons in consonant[len(cons) - 1]):
             point += 1
 
-    if(len(syl) < 5):
+    if(len(syl) < 5 and len(syl) > 0):
         if(syl in syllable[len(syl) - 1]):
             point += 1
     return point

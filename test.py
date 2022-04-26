@@ -3,7 +3,7 @@ import vietnameseaccent as vn
 import vnchar
 import random
 
-sentence = "Xin chào thầy và các bạn"
+sentence = "Anha"
 sentence = vn.preprocess(sentence)          # Tiền xử lí
 _sentence = vn.remove_vn_accent(sentence)   # Bỏ dấu câu
 
