@@ -15,7 +15,7 @@ def btn_start():
     sentence = tbword.get()
     sentence = vn.preprocess(sentence)          # Tiền xử lí
     _sentence = vn.remove_vn_accent(sentence)   # Bỏ dấu câu
-    ekey = random.randrange(1, 95)
+    ekey = random.randrange(1, 255) # Cho random một key bất kì từ 1 đến 255 để thực hiện Ascii shift cipher
     _sentence = asciishift.encode(ekey, _sentence)
     encodeRes.set(_sentence)
 
@@ -34,6 +34,7 @@ def btn_decode(_sentence):
 
 win = Tk()
 win.geometry("600x700")
+win.resizable(height=FALSE, width=FALSE)
 tree = ttk.Treeview(win, column=(1, 2, 3), show='headings', height=5)
 style = ttk.Style()
 style.configure("Treeview.Heading", font=("Segue UI", 12))
@@ -55,7 +56,6 @@ btn0 = Button(win, text='Encrypt (Random Key)', height=2, command=btn_start)
 btn0.grid(row=3, column=0, columnspan=2, pady=10)
 
 # encode section
-
 lb2 = Label(win, text="Encrypt result:", font=("Segue UI", 14))
 lb2.grid(row=4, column=0, columnspan=2)
 lb2_1 = Label(win, font=("Segue UI", 14), textvariable=encodeRes)
@@ -64,7 +64,7 @@ lb2_1.grid(row=5, column=0, columnspan=2)
 
 # decode section
 lb4 = Label(win, text="Decrypt result(s)", font=("Segue UI", 14))
-lb4.grid(row=6, column=0, sticky=W, padx = 20)
+lb4.grid(row=6, column=0, sticky=W, padx = 20, pady = 10)
 
 # encode section - List View
 tree = ttk.Treeview(win, column=(1, 2, 3), show='headings', height=5)
@@ -103,15 +103,11 @@ btn3.grid(row=8, column=0, columnspan=2, pady=10)
 # suggest to vietnamese
 lb5 = Label(win, text="Vietnamese word suggestion", font=("Segue UI", 14))
 lb5.grid(row=9, column=0, sticky=W, padx = 15)
-# lb5_1 = Label(win, text="enter a valid key", font=("Segue UI", 10, ITALIC))
-# lb5_1.pack()
 
 tree1 = ttk.Treeview(win, column=(1, 2), show='headings', height=5)
 tree1.grid(row=10, column=0, columnspan=2, pady=10, padx = 20)
-
 tree1.heading(1, text="Index", anchor=CENTER)
 tree1.column(1, anchor=CENTER, minwidth=0, width=70)
-
 tree1.heading(2, text="Result(s)", anchor=CENTER)
 tree1.column(2, anchor=CENTER, minwidth=0, width=480)
 
