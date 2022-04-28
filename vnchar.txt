@@ -66,3 +66,4 @@ syllable = [
         'oung', 'uych', 'uynh', 'uyen',
         'uyet', 'oong'                      ],
 ]
+

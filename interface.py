@@ -28,7 +28,7 @@ def btn_decode(_sentence):
         index += 1
         # Chấm điểm dựa trên nhóm ký tự phổ biến của Tiếng Việt
         point = vnchar.checkSentence(result.lower())
-        if(point > length/4):  # Lựa chọn mức độ điểm tương đối, nếu điểm càng cao thì số đề xuất sẽ ít
+        if(point > length/3):  # Lựa chọn mức độ điểm tương đối, nếu điểm càng cao thì số đề xuất sẽ ít
             tree.insert('', 'end', values=(
                 str(index), str(result), str(point)))
 
@@ -37,7 +37,8 @@ win.geometry("600x700")
 win.resizable(height=FALSE, width=FALSE)
 tree = ttk.Treeview(win, column=(1, 2, 3), show='headings', height=5)
 style = ttk.Style()
-style.configure("Treeview.Heading", font=("Segue UI", 12))
+style.configure("Treeview.Heading", font=("Segue UI", 14))
+style.configure("Treeview", font=("Segue UI", 12))
 
 encodeRes = StringVar()
 
@@ -47,28 +48,32 @@ lbTitle = Label(win, text="ASCII Shift Cipher", font=("Segue UI", 24, BOLD))
 lbTitle.grid(row=0, column=0, columnspan=2)
 # section1
 lb0 = Label(win, text="Enter a sentence:", font=("Segue UI", 14))
-lb0.grid(row=1, column=0, sticky=W, padx = 20)
+lb0.grid(row=1, column=0, sticky=W, padx=21)
 
 tbword = Entry(win, width=48, font=('Segue UI', 14), justify=CENTER)
 tbword.grid(row=2, column=0, columnspan=2, pady=10)
 
-btn0 = Button(win, text='Encrypt (Random Key)', height=2, command=btn_start)
+btn0 = Button(win, text='Encrypt (Random Key)', height=2, width=24, command=btn_start)
 btn0.grid(row=3, column=0, columnspan=2, pady=10)
 
 # encode section
-lb2 = Label(win, text="Encrypt result:", font=("Segue UI", 14))
+lb2 = Label(win, text="Encrypt result", font=("Segue UI", 14))
 lb2.grid(row=4, column=0, columnspan=2)
-lb2_1 = Label(win, font=("Segue UI", 14), textvariable=encodeRes)
+lb2_1 = Entry(win, width=48, font=('Segue UI', 14), justify=CENTER, textvariable=encodeRes)
 lb2_1.grid(row=5, column=0, columnspan=2)
 
 
 # decode section
-lb4 = Label(win, text="Decrypt result(s)", font=("Segue UI", 14))
-lb4.grid(row=6, column=0, sticky=W, padx = 20, pady = 10)
+btn3 = Button(win, text='Decrypt', height=2, width=24,
+              command=lambda: btn_decode(lb2_1.get()))
+btn3.grid(row=6, column=0, columnspan=2, pady=10)
 
-# encode section - List View
+# decode section - List View
+lb4 = Label(win, text="Decrypt result(s):", font=("Segue UI", 14))
+lb4.grid(row=7, column=0, sticky=SW, padx = 20, pady=10)
+
 tree = ttk.Treeview(win, column=(1, 2, 3), show='headings', height=5)
-tree.grid(row=7, column=0, columnspan=2, pady=10, padx = 20)
+tree.grid(row=8, column=0, columnspan=2, padx=20)
 
 tree.heading(1, text="Key", anchor=CENTER)
 tree.column(1, anchor=CENTER, minwidth=0, width=70)
@@ -96,16 +101,12 @@ def vn_sugguest(event):
 
 tree.bind('<ButtonRelease-1>', vn_sugguest)
 
-btn3 = Button(win, text='Decrypt', height=2,
-              command=lambda: btn_decode(str(lb2_1['text'])))
-btn3.grid(row=8, column=0, columnspan=2, pady=10)
-
 # suggest to vietnamese
-lb5 = Label(win, text="Vietnamese word suggestion", font=("Segue UI", 14))
-lb5.grid(row=9, column=0, sticky=W, padx = 15)
+lb5 = Label(win, text="Vietnamese Word Suggestion", font=("Segue UI", 14))
+lb5.grid(row=9, column=0, sticky=SW, padx=15, pady=10)
 
 tree1 = ttk.Treeview(win, column=(1, 2), show='headings', height=5)
-tree1.grid(row=10, column=0, columnspan=2, pady=10, padx = 20)
+tree1.grid(row=10, column=0, columnspan=2, padx=20)
 tree1.heading(1, text="Index", anchor=CENTER)
 tree1.column(1, anchor=CENTER, minwidth=0, width=70)
 tree1.heading(2, text="Result(s)", anchor=CENTER)
