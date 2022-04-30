@@ -29,8 +29,9 @@ def btn_decode(_sentence):
 
     for result in sortedResults:
         if(result[2] > 0):  # Lựa chọn mức độ điểm tương đối, nếu điểm càng cao thì số đề xuất sẽ ít
+            tmp = result[1].encode('utf-8').replace(b'\x00', b'\xe2\x96\xa1')
             tree.insert('', 'end', values=(
-                str(result[0]), str(result[1]), str(result[2])))
+                str(result[0]), str(tmp, 'utf-8'), str(result[2])))
 
 def vn_sugguest(event):
     for it in tree.selection():
@@ -99,7 +100,7 @@ lb2_1.grid(row=5, column=0, columnspan=2)
 
 # decode section
 btn3 = Button(win, text='Decrypt', height=2, width=24,
-              command=lambda: btn_decode(lb2_1.get()))
+              command=lambda: btn_decode(encodeRes.get()))
 btn3.grid(row=6, column=0, columnspan=2, pady=10)
 
 # decode section - List View
