@@ -27,7 +27,6 @@ vnchar = [
     'z', [],
 ]
 
-text = "nghieng"
 def checkLetter(text): # Check kí tự
     letters = []
     for letter in text:
@@ -40,8 +39,6 @@ def checkLetter(text): # Check kí tự
             if(letters[i + 1] in vnchar[id + 1]):
                 point += 1
     return point
-
-# print(check(text))
 
 # Bảng phụ âm đầu
 consonant = [
@@ -105,7 +102,6 @@ def getSyl(word): # Check vần
             syl += letter
     return syl
 
-# text = "!@#$%^&*()an"
 def checkWord(word):    # Check từ
     point = 0
     cons = getCons(word)

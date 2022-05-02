@@ -14,6 +14,14 @@ def remove_vn_accent(s):
     s = re.sub('[úùủũụưứừửữự]', 'u', s)
     s = re.sub('[ýỳỷỹỵ]', 'y', s)
     s = re.sub('đ', 'd', s)
+    
+    s = re.sub('[áàảãạăắằẳẵặâấầẩẫậ]'.upper(), 'A', s)
+    s = re.sub('[éèẻẽẹêếềểễệ]'.upper(), 'E', s)
+    s = re.sub('[óòỏõọôốồổỗộơớờởỡợ]'.upper(), 'O', s)
+    s = re.sub('[íìỉĩị]'.upper(), 'i', s)
+    s = re.sub('[úùủũụưứừửữự]'.upper(), 'U', s)
+    s = re.sub('[ýỳỷỹỵ]'.upper(), 'Y', s)
+    s = re.sub('đ'.upper(), 'D', s)
     return s
 
 # Tạo bộ từ điển sinh dấu câu cho các từ không dấu
@@ -24,7 +32,6 @@ for word in open('vn_syllables.txt', encoding="utf8").read().splitlines():
     if no_accent_word not in map_accents:
         map_accents[no_accent_word] = set()
     map_accents[no_accent_word].add(word)
-
 
 # Đọc lm
 lm = {}
@@ -37,7 +44,6 @@ total_word = 0
 
 for word in lm:
     total_word += lm[word]['sum']
-
 
 # tính xác suất dùng smoothing
 def get_proba(current_word, next_word):
@@ -71,7 +77,7 @@ def beam_search(words, k=3):
 
 # tiền xử lý text
 def preprocess(sentence):
-    sentence = sentence.lower()
+    # sentence = sentence.lower()
     sentence = re.sub(r'[.,~`!@#$%\^&*\(\)\[\]\\|:;\'"]+', ' ', sentence)
     sentence = re.sub(r'\s+', ' ', sentence).strip()
     return sentence

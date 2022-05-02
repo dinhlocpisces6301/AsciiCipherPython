@@ -36,7 +36,7 @@ def btn_decode(_sentence):
 def vn_sugguest(event):
     for it in tree.selection():
         item = tree.item(it)
-        words = item['values'][1]
+        words = item['values'][1].lower()
         try:
             words = words.split()
             k = 5

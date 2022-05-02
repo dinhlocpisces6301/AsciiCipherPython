@@ -3,8 +3,8 @@ import vietnameseaccent as vn
 import vnchar
 import random
 
-sentence = "Xin Chao Cac Ban"
-sentence = vn.preprocess(sentence)          # Tiền xử lí
+sentence = "Xin Chao Cac Ban".lower()
+_sentence = vn.preprocess(sentence)          # Tiền xử lí
 _sentence = vn.remove_vn_accent(sentence)   # Bỏ dấu câu
 
 ekey = random.randrange(1, 256) # Cho random một key bất kì từ 1 đến 255 để thực hiện Ascii shift cipher
@@ -26,7 +26,7 @@ for result in sortedResults:
 pos = input('Vị trí đề xuất kết quả: ') 
 print()
 try:    
-    tmp = results[int(pos) - 1]
+    tmp = results[int(pos) - 1].lower()
     words = tmp[1].split()
     k = 3
     vn_results = vn.beam_search(words, k)
