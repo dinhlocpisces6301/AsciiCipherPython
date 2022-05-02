@@ -1,14 +1,15 @@
+# Bảng ký tự Tiếng Việt và từ theo sau hợp lệ
 vnchar = [
     'a', ['c', 'i', 'm', 'n', 'o', 'p', 't', 'u', 'y'      ],
     'b', ['a', 'e', 'i', 'o', 'u'                          ],
     'c', ['a', 'h', 'o', 'u'                               ],
     'd', ['a', 'e', 'i', 'o', 'u'                          ],
     'e', ['c', 'm', 'n', 'o', 'p', 't', 'u'                ],
-    'f', [],
+    'f', [                                                 ],
     'g', ['a', 'h', 'i', 'o', 'u'                          ],
     'h', ['a', 'e', 'i', 'o', 'u', 'y'                     ],
     'i', ['a', 'c', 'e', 'm', 'n', 'p', 't', 'u'           ],
-    'j', [],
+    'j', [                                                 ],
     'k', ['h', 'e'                                         ],
     'l', ['a', 'e', 'i', 'o', 'u', 'y'                     ],
     'm', ['a', 'e', 'i', 'o', 'u', 'y'                     ],
@@ -21,24 +22,11 @@ vnchar = [
     't', ['a', 'e', 'h', 'i', 'o', 'r', 'u', 'y'           ],
     'u', ['a', 'c', 'e', 'i', 'm', 'n', 'o', 'p', 't', 'y' ],
     'v', ['a', 'e', 'i', 'o', 'u'                          ],
-    'w', [],
+    'w', [                                                 ],
     'x', ['a', 'e', 'i', 'o', 'u'                          ],
     'y', ['e', 'n', 'u'                                    ],
-    'z', [],
+    'z', [                                                 ],
 ]
-
-def checkLetter(text): # Check kí tự
-    letters = []
-    for letter in text:
-        letters.append(letter)
-
-    point = 0
-    for i in range(0, len(text) - 1):
-        if(letters[i] in vnchar):
-            id = vnchar.index(letters[i])
-            if(letters[i + 1] in vnchar[id + 1]):
-                point += 1
-    return point
 
 # Bảng phụ âm đầu
 consonant = [
@@ -79,7 +67,7 @@ syllable = [
         'uyet', 'oong'                      ],
 ]
 
-def getCons(word):  # Check phụ âm đầu
+def getCons(word):  #Lấy phụ âm đầu
     cons = ''
     for letter in word:
         if(letter in consonant[0]):
@@ -88,7 +76,7 @@ def getCons(word):  # Check phụ âm đầu
             break
     return cons
 
-def getSyl(word): # Check vần
+def getSyl(word): #Lấy vần
     syl = ''
     isAdded = False
     isSyllable = False
@@ -102,10 +90,23 @@ def getSyl(word): # Check vần
             syl += letter
     return syl
 
-def checkWord(word):    # Check từ
+def checkLetter(text): #Check ký tự
+    letters = []
+    for letter in text:
+        letters.append(letter)
+
     point = 0
-    cons = getCons(word)
-    syl = getSyl(word)
+    for i in range(0, len(text) - 1):
+        if(letters[i] in vnchar):
+            id = vnchar.index(letters[i])
+            if(letters[i + 1] in vnchar[id + 1]):
+                point += 1
+    return point
+
+def checkWord(word):    #Check từ
+    point = 0
+    cons = getCons(word) #Lấy phụ âm đầu
+    syl = getSyl(word)   #Lấy vần
 
     if(len(cons) < 4 and len(cons) > 0):
         if(cons in consonant[len(cons) - 1]):
@@ -116,10 +117,11 @@ def checkWord(word):    # Check từ
             point += 1
     return point
 
-def checkSentence(sentence):    # Check câu
+def checkSentence(sentence):    #Check câu
     point = 0
+    point += checkLetter(sentence) #Check ký tự
+
     words = sentence.split(' ')
-    point += checkLetter(sentence)
     for word in words:
-        point += checkWord(word)
+        point += checkWord(word) #Check từ
     return point
