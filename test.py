@@ -14,9 +14,8 @@ _sentence = asciishift.encode(ekey, _sentence)
 results = asciishift.decode(_sentence)
 
 print("Results:")
-sortedResults = sorted(results, key=lambda x: x[2], reverse=True)
 
-for result in sortedResults:
+for result in results:
     result[1] = result[1].encode('utf-8').replace(b'\x00', b'\xe2\x96\xa1')
     result[1] = result[1].decode()
     if(result[2] > 0): # Lựa chọn mức độ điểm tương đối, nếu điểm càng cao thì số đề xuất sẽ ít

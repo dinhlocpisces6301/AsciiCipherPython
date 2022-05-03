@@ -25,4 +25,5 @@ def decode(text):
         point = vnchar.checkSentence(ptext.lower()) #Xử lý Tiếng Việt
         result = [i, ptext, point]
         results.append(result)
+    results = sorted(results, key=lambda x: x[2], reverse=True)
     return results #Kết quả trả về là Danh sách bản rõ ứng viên
